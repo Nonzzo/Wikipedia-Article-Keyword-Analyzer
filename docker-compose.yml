@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  wiki-crawler:
+    build: .
+    volumes:
+      - .:/app
+    depends_on:
+      - database
+    environment:
+      - DATABASE_HOST=database
+      - DATABASE_PORT=5432
+      - DATABASE_NAME=wikipedia
+      - DATABASE_USER=postgres
+      - DATABASE_PASSWORD=mysecretpassword
+      - ANALYSIS_KEYWORD=every  # Set your default keyword here
+
+  database:
+    image: postgres:13
+    environment:
+      - POSTGRES_DB=wikipedia
+      - POSTGRES_PASSWORD=mysecretpassword
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+volumes:
+  postgres_data:

@@ -30,6 +30,9 @@ wiki-keyword-analyzer/
     ├── __init__.py
     ├── test_wiki_crawler.py
     └── conftest.py
+    ├── requirements.txt
+    └── Dockerfile.test
+    └── docker-compose.test.yml
 ```
 
 ## Installation & Setup

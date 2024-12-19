@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  tests:
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+    volumes:
+      - .:/app
+    environment:
+      - PYTHONPATH=/app
+      - DATABASE_HOST=database-test
+      - DATABASE_PORT=5432
+      - DATABASE_NAME=wikipedia_test
+      - DATABASE_USER=postgres
+      - DATABASE_PASSWORD=mysecretpassword
+    depends_on:
+      - database-test
+    command: pytest -v tests/
+
+  database-test:
+    image: postgres:13
+    environment:
+      - POSTGRES_DB=wikipedia_test
+      - POSTGRES_PASSWORD=mysecretpassword
+    ports:
+      - "5433:5432"
